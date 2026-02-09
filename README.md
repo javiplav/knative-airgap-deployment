@@ -27,15 +27,20 @@ This project provides a tested, production-ready approach to deploy Knative Serv
 
 ## Quick Start
 
-### Prerequisites
+### Two Deployment Options
 
+#### Option 1: Direct Installation (Connected Environment)
+
+For testing or when you have internet access:
+
+**Prerequisites**:
 - Kubernetes cluster (Rancher Desktop, kind, k3s, or any distribution)
 - kubectl configured and working
 - Helm 3.x installed
 - Docker or container runtime for image operations
 - ~3GB free disk space for images
 
-### One-Command Setup
+**One-Command Setup**:
 
 ```bash
 cd scripts
@@ -49,6 +54,37 @@ This will:
 4. Test the deployment with a sample service
 
 **Time**: ~10-15 minutes
+
+#### Option 2: True Airgap Installation (Recommended for Production)
+
+For fully airgapped environments with **NO internet access**:
+
+**On Connected System** (with internet):
+```bash
+# Create complete airgap package
+cd scripts
+./package-for-airgap.sh
+
+# Output: build/knative-airgap-1.0.0.tar.gz (~2-3 GB)
+```
+
+**Transfer Package**:
+- USB drive, secure file transfer, or physical media
+- Includes all images, scripts, and documentation
+
+**On Airgapped System** (no internet):
+```bash
+# Extract and install
+tar -xzf knative-airgap-1.0.0.tar.gz
+cd knative-airgap-1.0.0/
+./install.sh
+```
+
+**Time**:
+- Package creation: 10-15 minutes
+- Installation: 10-15 minutes
+
+📖 **See [Airgap Packaging Guide](docs/AIRGAP-PACKAGING.md) for complete workflow**
 
 ## What Gets Deployed
 
@@ -83,6 +119,7 @@ All Knative v1.15.0 components:
 ### Getting Started
 
 - **[Quick Start](docs/QUICK-START.md)** - Get up and running quickly
+- **[Airgap Packaging Guide](docs/AIRGAP-PACKAGING.md)** ⭐ - Complete workflow for true airgap deployment
 - **[Deployment Guide](docs/DEPLOYMENT-GUIDE.md)** - Comprehensive deployment instructions
 - **[Testing Guide](docs/TESTING-GUIDE.md)** - Test results and validation
 
