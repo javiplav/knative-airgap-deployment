@@ -1,0 +1,45 @@
+# Generated configuration files
+registry-config.env
+harbor-config.env
+image-mappings.txt
+
+# Generated Kubernetes manifests
+operator-airgap.yaml
+operator-original.yaml
+knative-serving-airgap.yaml
+test-service-airgap.yaml
+
+# Backup files
+*.backup
+*.bak
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# Logs
+*.log
+
+# Temporary files
+/tmp/
+*.tmp
+
+# Kubernetes config (if accidentally copied)
+kubeconfig
+*.kubeconfig
+
+# Docker/Registry data
+registry-backup/
+*.tar
+
+# Test outputs
+debug-*.txt
+debug-*.yaml

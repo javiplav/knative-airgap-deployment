@@ -1,0 +1,44 @@
+# Example Knative Service for testing airgap deployment
+#
+# This service uses the mirrored helloworld-go image from your private registry
+#
+# Deploy with:
+#   kubectl apply -f test-service.yaml
+#
+# Check status:
+#   kubectl get ksvc hello-airgap
+#
+# Access (requires port-forward):
+#   kubectl port-forward -n knative-serving svc/kourier 8080:80
+#   curl -H "Host: hello-airgap.default.127.0.0.1.sslip.io" http://localhost:8080
+
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hello-airgap
+  namespace: default
+spec:
+  template:
+    metadata:
+      annotations:
+        # Optional: autoscaling configuration
+        autoscaling.knative.dev/min-scale: "1"
+        autoscaling.knative.dev/max-scale: "5"
+    spec:
+      containers:
+      - name: hello
+        # Image from private registry
+        # Update this to match your registry URL
+        image: localhost:30500/knative-helloworld-go:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TARGET
+          value: "Airgap World"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
